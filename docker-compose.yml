@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  vehicle-speed-estimator:
+    build: .
+    container_name: vehicle-speed-estimator
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - CSRF_SECRET_KEY=${CSRF_SECRET_KEY}
+      - MODEL_PATH=${MODEL_PATH:-/app/models/yolov8x.pt}
+      - UPLOAD_FOLDER=${UPLOAD_FOLDER:-/data/uploads}
+      - OUTPUT_FOLDER=${OUTPUT_FOLDER:-/data/output}
+    volumes:
+      - ./models:/app/models
+      - ./data/uploads:/data/uploads
+      - ./data/output:/data/output

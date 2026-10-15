@@ -1,0 +1,24 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Environments
+.venv/
+venv/
+.env
+.env.*
+
+# Models and large generated artifacts
+models/*.pt
+models/*.weights
+*.mp4
+*.avi
+*.mov
+uploads/
+static/output_*
+static/vehicle_data_*
+
+# OS/editor files
+.DS_Store
+.vscode/
+.idea/

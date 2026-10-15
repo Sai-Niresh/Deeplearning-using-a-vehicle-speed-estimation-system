@@ -1,0 +1,12 @@
+flask
+flask-wtf
+wtforms
+pandas
+openpyxl
+ultralytics
+supervision
+opencv-python-headless
+numpy
+tqdm
+gunicorn
+python-dotenv
