@@ -1,3 +1,4 @@
+import os
 import cv2
 import numpy as np
 import supervision as sv
@@ -30,7 +31,9 @@ def process_video(input_video_path, output_video_path, output_excel_path):
     SOURCE_POINTS = np.array([[1252, 787], [2298, 803], [5039, 2159], [-550, 2159]])
     TARGET_POINTS = np.array([[0, 0], [25, 0], [25, 250], [0, 250]])
 
-    model = YOLO('yolov8x.pt')
+    default_model_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'models', 'yolov8x.pt')
+    model_path = os.environ.get('MODEL_PATH', default_model_path)
+    model = YOLO(model_path)
     class_names = model.model.names
     selected_class_ids = [k for k, v in class_names.items() if v in SELECTED_CLASSES]
 

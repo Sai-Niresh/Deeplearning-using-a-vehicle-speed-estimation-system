@@ -26,4 +26,4 @@ ENV MODEL_PATH=/app/models/yolov8x.pt \
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "3", "--threads", "2", "app:app", "--chdir", "final_code"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "3", "--threads", "2", "final_code.app:app"]

@@ -264,7 +264,7 @@
         <!-- Video Playback -->
         {% if video_file %}
         <video controls aria-label="Processed vehicle tracking video">
-            <source src="{{ url_for('static', filename=video_file) }}" type="video/mp4" />
+            <source src="{{ url_for('processed_output', filename=video_file) }}" type="video/mp4" />
             Your browser does not support the video tag.
         </video>
         {% else %}

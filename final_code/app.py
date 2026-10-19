@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, flash, session
+from flask import Flask, render_template, request, redirect, url_for, send_file, send_from_directory, flash, session
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Email
@@ -16,8 +16,9 @@ app.secret_key = os.environ.get('SECRET_KEY', os.urandom(24))
 app.config['WTF_CSRF_SECRET_KEY'] = os.environ.get('CSRF_SECRET_KEY', os.urandom(24))
 
 # Configuration
-UPLOAD_FOLDER = 'uploads'
-OUTPUT_FOLDER = 'static'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER', os.path.join(BASE_DIR, 'uploads'))
+OUTPUT_FOLDER = os.environ.get('OUTPUT_FOLDER', app.static_folder)
 ALLOWED_EXTENSIONS = {'mp4', 'avi', 'mov'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -25,8 +26,8 @@ app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 500 * 1024 * 1024  # 500 MB max upload size
 
 # Ensure folders exist
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+os.makedirs(app.config['OUTPUT_FOLDER'], exist_ok=True)
 
 # Setup logging to terminal
 logging.basicConfig(
@@ -133,6 +134,10 @@ def results():
             flash('Please enter a valid numeric Tracker ID.', 'error')
 
     return render_template('results.html', video_file=output_video, data=filtered_data, vehicle_id=vehicle_id)
+
+@app.route('/processed/<path:filename>')
+def processed_output(filename):
+    return send_from_directory(app.config['OUTPUT_FOLDER'], filename)
 
 @app.route('/download_excel')
 def download_excel():
