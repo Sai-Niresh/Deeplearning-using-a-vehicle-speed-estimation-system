@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "final_code/app.py",
+      "use": "@vercel/python",
+      "config": {
+        "runtime": "python3.10",
+        "entrypoint": "final_code.app:app",
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ]
+}
