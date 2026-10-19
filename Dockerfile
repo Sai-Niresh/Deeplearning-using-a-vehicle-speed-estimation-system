@@ -24,6 +24,6 @@ ENV MODEL_PATH=/app/models/yolov8x.pt \
     UPLOAD_FOLDER=/data/uploads \
     OUTPUT_FOLDER=/data/output
 
-EXPOSE 5000
+EXPOSE 10000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "3", "--threads", "2", "final_code.app:app"]
+CMD ["/bin/sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-10000} --workers 3 --threads 2 final_code.app:app"]
