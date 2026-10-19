@@ -2,5 +2,24 @@
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "vehicle-speed-estimation"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "flask",
+    "flask-wtf",
+    "wtforms",
+    "pandas",
+    "openpyxl",
+    "ultralytics",
+    "supervision",
+    "opencv-python-headless",
+    "numpy",
+    "tqdm",
+    "gunicorn",
+    "python-dotenv",
+]
+
 [tool.vercel]
 entrypoint = "final_code.app:app"
